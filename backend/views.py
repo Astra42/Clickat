@@ -3,12 +3,13 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .forms import UserForm
 from . import forms
-from .serialyzers import CoreSerialyzer
+from .serialyzers import CoreSerializer, BoostSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework import viewsets
 ...
-from .models import Core  # Не забудем импортировать модель Core
+from .models import Core, Boost # Не забудем импортировать модель Core
 
 
 class Register(APIView):
@@ -48,22 +49,34 @@ def user_logout(request):
     return redirect("login")
 
 
-
 @login_required
 def index(request):
     core = Core.objects.get(user=request.user)
-    return render(request, 'index.html', {"core":core})
+    boosts = Boost.objects.filter(core=core)  # Достаем бусты пользователя из базы
+
+    return render(request, 'index.html', {
+        'core': core,
+        'boosts': boosts,  # Возвращаем бусты на фронтик
+    })
 
 @api_view(['GET'])
 @login_required
 def call_click(request):
     core = Core.objects.get(user=request.user)
-    core.click()
+    is_levelup = core.click() # Труе если буст создался
+    if is_levelup:
+        Boost.objects.create(core=core, price=core.level*50, power=core.level*20) # Создание буста
     core.save()
 
-    return Response({'core': CoreSerialyzer(core).data})
-    # return render(request,  'index.html', {'core': core})
+    return Response({ 'core': CoreSerializer(core).data, 'is_levelup': is_levelup })
 
+class BoostViewSet(viewsets.ModelViewSet):
+    queryset = Boost.objects.all()
+    serializer_class = BoostSerializer
 
-
+    # Переопределение метода get_queryset для получения бустов, привязанных к определенному ядру
+    def get_queryset(self):
+        core = Core.objects.get(user=self.request.user) # Получение ядра пользователя
+        boosts = Boost.objects.filter(core=core) # Получение бустов ядра
+        return boosts
 
