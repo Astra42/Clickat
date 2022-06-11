@@ -1,10 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
+
+{% load static %}
+
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Лучший кликер на планете</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
 </head>
 <body>
-пивет
+    <main class="container">
+        <nav>
+            пивет {{user.username}}
+            <a href="{% url 'logout'%}"> <br>вильнуть хвостиком</a>
+        </nav>
+        <div>
+            <div id='coins'>{{core.coins}}</div>
+            <button onclick="call_click()">Нажми меня</button>
+        </div>
+
+    </main>
 </body>
 </html>
