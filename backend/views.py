@@ -80,3 +80,17 @@ class BoostViewSet(viewsets.ModelViewSet):
         boosts = Boost.objects.filter(core=core) # Получение бустов ядра
         return boosts
 
+    def partial_update(self, request, pk):
+        boost = self.queryset.get(pk=pk)
+
+        is_levelup = boost.levelup()
+        if not is_levelup:
+            return Response({"error": "Не хватает денег"})
+
+        old_boost_stats, new_boost_stats = is_levelup
+
+        return Response({
+            "old_boost_stats": self.serializer_class(old_boost_stats).data,
+            "new_boost_stats": self.serializer_class(new_boost_stats).data,
+        })
+

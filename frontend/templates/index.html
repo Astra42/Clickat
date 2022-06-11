@@ -8,20 +8,20 @@
 <body>
     <main class="app">
         <nav class="nav">
-            Привет, {{ user.username }}
-            <a href="{% url 'logout' %}">Выйти</a>
+            Пивет, {{ user.username }}
+            <a href="{% url 'logout' %}">Вильнуть хвостиком</a>
         </nav>
 
         <div class="container">
             <div id='coins'>{{core.coins}}</div> 
-            <button onclick="call_click()">Нажми меня</button>
+            <img class="kitc" src="{% static 'imgs/cat-comp.gif' %}"  onclick="call_click()">Помоги котику тыкать</img>
             <p>
-                Невероятная мощь клика: <span id="click_power">{{ core.click_power }}</span> 
+                Невероятная мощь лапки: <span id="click_power">{{ core.click_power }}</span>
             </p>
         </div>
 
         <aside class="boosts" id="boosts"> 
-            <h3>Бусты</h3> 
+            <h3>Дополнительные лапки</h3>
             <div class="boosts-holder" id="boosts-holder"> 
                 {% for boost in boosts %} 
                     <button class="boost" id="boost_{{boost.id}}" onclick="buy_boost({{boost.id}})"> 

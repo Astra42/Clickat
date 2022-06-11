@@ -1,18 +1,18 @@
-<html lang="en">
+<html lang="ru">
 <head>
-    <title>Авторизация в лучшем кликере</title>
+    <title>Которизация в лучшем кликере</title>
 </head>
 <body>
-    <h1>Авторизация</h1>
+    <h1>Которизация</h1>
     <form action="{% url 'login' %}" method='POST'>
         {% csrf_token %}
         {{ form.username }}
         {{ form.password }}
         {% if invalid %}
-            <p>Введи нормальные данные</p>
+            <p>Введи нормальные букавки</p>
         {% endif %}
         <input type="submit">
     </form>
-    <a href="{% url 'register' %}">Не зарегистрирован?</a>
+    <a href="{% url 'register' %}">Ты чего, залегистрирован есё?</a>
 </body>
 </html>
