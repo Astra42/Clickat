@@ -6,6 +6,15 @@
     width: 100%;
     flex-direction: column;
 }
+body {
+    font-family: cursive;
+    font-size: 17px;
+}
+.kitcBG
+{
+     height: 100%;
+
+}
 .app
 {
     display: flex;
@@ -37,4 +46,39 @@
 {
      height: 70%;
      cursor: pointer;
+}
+
+.boosts_0
+{
+     background: white;
+}
+
+.boosts_1
+{
+     background: blue;
+}
+
+a{
+    font-family: cursive;
+    background-color: Khaki;
+    border:solid 3px black;
+    border-radius: 30px;
+    font-size: 15px;
+    margin: 5% 80% 0% 0%;
+    padding: 10px 10px 10px 10px;
+}
+
+.boost_0 {
+    background-color: rgb(107, 142, 35);
+    padding: 0px 15px 0px 15px;
+    border:solid 3 px black;
+    border-radius: 30px;
+    font-family: cursive;
+}
+.boost_1 {
+    background-color: rgb(210, 105, 30);
+    padding: 0px 15px 0px 15px;
+    border:solid 3 px black;
+    border-radius: 30px;
+    font-family: cursive;
 }
